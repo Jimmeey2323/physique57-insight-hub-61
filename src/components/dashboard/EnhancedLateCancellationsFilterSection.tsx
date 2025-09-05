@@ -1,11 +1,11 @@
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, User, Clock, Package, Filter, X } from 'lucide-react';
+import { Calendar, MapPin, User, Clock, Package, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { LateCancellationsData } from '@/types/dashboard';
 
 interface EnhancedLateCancellationsFilterSectionProps {
