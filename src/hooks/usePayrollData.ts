@@ -47,8 +47,10 @@ export const usePayrollData = () => {
 
   const fetchPayrollData = async () => {
     try {
+      console.log('Fetching payroll data from Google Sheets...');
       setIsLoading(true);
       const accessToken = await getAccessToken();
+      console.log('Access token obtained successfully');
 
       const response = await fetch(
         `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Payroll?alt=json`,
@@ -58,13 +60,16 @@ export const usePayrollData = () => {
       );
 
       if (!response.ok) {
-        throw new Error('Failed to fetch payroll data');
+        throw new Error(`Failed to fetch payroll data: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
       const rows = result.values || [];
+      console.log('Payroll sheet headers:', rows[0]);
+      console.log('Total payroll rows:', rows.length);
 
       if (rows.length < 2) {
+        console.log('No payroll data found');
         setData([]);
         return;
       }
@@ -110,6 +115,8 @@ export const usePayrollData = () => {
         classAverageExclEmpty: parseNumericValue(row[21]) > 0 ? parseNumericValue(row[22]) / parseNumericValue(row[21]) : 0
       }));
 
+      console.log('Transformed payroll data sample:', payrollData.slice(0, 3));
+      console.log('Total payroll records processed:', payrollData.length);
       setData(payrollData);
       setError(null);
     } catch (err) {
