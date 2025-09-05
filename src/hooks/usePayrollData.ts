@@ -100,12 +100,14 @@ export const usePayrollData = () => {
         totalPaid: parseNumericValue(row[23]),
 
         monthYear: row[24] || '',
-        uniqueKey: row[25] || '',
+        unique: row[25] || '',
         converted: parseNumericValue(row[26]),
-        conversionRate: parseNumericValue(row[27]),
+        conversion: parseNumericValue(row[27]).toString() + '%',
         retained: parseNumericValue(row[28]),
-        retentionRate: parseNumericValue(row[29]),
-        newCustomers: parseNumericValue(row[30]),
+        retention: parseNumericValue(row[29]).toString() + '%',
+        new: parseNumericValue(row[30]),
+        classAverageInclEmpty: parseNumericValue(row[22]) > 0 ? parseNumericValue(row[19]) / parseNumericValue(row[22]) : 0,
+        classAverageExclEmpty: parseNumericValue(row[21]) > 0 ? parseNumericValue(row[22]) / parseNumericValue(row[21]) : 0
       }));
 
       setData(payrollData);

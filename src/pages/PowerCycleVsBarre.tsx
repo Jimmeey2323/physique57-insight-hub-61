@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSessionsData } from '@/hooks/useSessionsData';
+import { usePayrollData } from '@/hooks/usePayrollData';
 import { useGlobalLoading } from '@/hooks/useGlobalLoading';
 import { ProfessionalLoader } from '@/components/dashboard/ProfessionalLoader';
 import { PowerCycleVsBarreSection } from '@/components/dashboard/PowerCycleVsBarreSection';
@@ -11,7 +11,7 @@ import { Home, BarChart3 } from 'lucide-react';
 import { Footer } from '@/components/ui/footer';
 
 const PowerCycleVsBarre = () => {
-  const { data: sessionData, loading } = useSessionsData();
+  const { data: payrollData, isLoading: loading } = usePayrollData();
   const { isLoading, setLoading } = useGlobalLoading();
   const navigate = useNavigate();
 
