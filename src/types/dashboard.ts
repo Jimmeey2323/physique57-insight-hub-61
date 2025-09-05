@@ -97,6 +97,11 @@ export interface PayrollData {
   nonEmptyBarreSessions: number;
   barreCustomers: number;
   barrePaid: number;
+  strengthSessions?: number;
+  emptyStrengthSessions?: number;
+  nonEmptyStrengthSessions?: number;
+  strengthCustomers?: number;
+  strengthPaid?: number;
   totalSessions: number;
   totalEmptySessions: number;
   totalNonEmptySessions: number;
@@ -109,6 +114,9 @@ export interface PayrollData {
   retention: string;
   converted: number;
   conversion: string;
+  conversionRate?: number;
+  retentionRate?: number;
+  newCustomers?: number;
   classAverageInclEmpty: number;
   classAverageExclEmpty: number;
 }
@@ -259,6 +267,22 @@ export interface LateCancellationsData {
   paidAmount?: number;
   isNew?: string;
   tableType?: string;
+  [key: string]: string | number | undefined;
+}
+
+export interface DiscountAnalysisData {
+  memberId?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  location?: string;
+  cleanedProduct?: string;
+  cleanedCategory?: string;
+  mrpPostTax?: number;
+  discountAmount?: number;
+  discountPercentage?: number;
+  paymentDate?: string;
+  soldBy?: string;
   [key: string]: string | number | undefined;
 }
 

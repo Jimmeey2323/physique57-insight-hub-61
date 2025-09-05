@@ -14,6 +14,12 @@ export interface DiscountAnalysisData {
   paidInMoneyCredits: number;
   paymentVat: number;
   paymentItem: string;
+  cleanedProduct?: string;
+  mrpPostTax?: number;
+  discountAmount?: number;
+  discountPercentage?: number;
+  soldBy?: string;
+  location?: string;
 }
 export const useDiscountAnalysis = () => {
   const { data: salesData, loading, error } = useGoogleSheets();

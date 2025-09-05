@@ -45,7 +45,7 @@ export const ClientConversionAdvancedMetrics: React.FC<ClientConversionAdvancedM
         if (!stats[month]) stats[month] = { total: 0, converted: 0, retained: 0, newClients: 0 };
         stats[month].total++;
         if ((client.isNew || '').toLowerCase().includes('new')) stats[month].newClients++;
-        if (client.conversionStatus === 'Converted') acc[month].converted++;
+        if (client.conversionStatus === 'Converted') stats[month].converted++;
         if (client.retentionStatus === 'Retained') stats[month].retained++;
       }
     });

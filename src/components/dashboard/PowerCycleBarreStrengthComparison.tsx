@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { TrendingUp, TrendingDown, Users, Target, Calendar, Zap, Activity, Dumbbell, Crown, Trophy, Award } from 'lucide-react';
+import { TrendingUp, TrendingDown, Users, Target, Calendar, Zap, Activity, Dumbbell, Crown, Trophy, Award, DollarSign, BarChart3 } from 'lucide-react';
 import { formatNumber, formatCurrency } from '@/utils/formatters';
 import { PayrollData } from '@/types/dashboard';
 
@@ -17,9 +17,9 @@ export const PowerCycleBarreStrengthComparison: React.FC<PowerCycleBarreStrength
   const comparisonData = useMemo(() => {
     if (!data || data.length === 0) {
       return {
-        powerCycle: { sessions: 0, customers: 0, revenue: 0, avgCustomersPerSession: 0, emptySessions: 0 },
-        barre: { sessions: 0, customers: 0, revenue: 0, avgCustomersPerSession: 0, emptySessions: 0 },
-        strength: { sessions: 0, customers: 0, revenue: 0, avgCustomersPerSession: 0, emptySessions: 0 }
+        powerCycle: { sessions: 0, customers: 0, revenue: 0, avgCustomersPerSession: 0, emptySessions: 0, nonEmptySessions: 0 },
+        barre: { sessions: 0, customers: 0, revenue: 0, avgCustomersPerSession: 0, emptySessions: 0, nonEmptySessions: 0 },
+        strength: { sessions: 0, customers: 0, revenue: 0, avgCustomersPerSession: 0, emptySessions: 0, nonEmptySessions: 0 }
       };
     }
 
@@ -28,7 +28,8 @@ export const PowerCycleBarreStrengthComparison: React.FC<PowerCycleBarreStrength
       customers: data.reduce((sum, item) => sum + (item.cycleCustomers || 0), 0),
       revenue: data.reduce((sum, item) => sum + (item.cyclePaid || 0), 0),
       emptySessions: data.reduce((sum, item) => sum + (item.emptyCycleSessions || 0), 0),
-      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyCycleSessions || 0), 0)
+      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyCycleSessions || 0), 0),
+      avgCustomersPerSession: 0
     };
 
     const barre = {
@@ -36,7 +37,8 @@ export const PowerCycleBarreStrengthComparison: React.FC<PowerCycleBarreStrength
       customers: data.reduce((sum, item) => sum + (item.barreCustomers || 0), 0),
       revenue: data.reduce((sum, item) => sum + (item.barrePaid || 0), 0),
       emptySessions: data.reduce((sum, item) => sum + (item.emptyBarreSessions || 0), 0),
-      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyBarreSessions || 0), 0)
+      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyBarreSessions || 0), 0),
+      avgCustomersPerSession: 0
     };
 
     const strength = {
@@ -44,7 +46,8 @@ export const PowerCycleBarreStrengthComparison: React.FC<PowerCycleBarreStrength
       customers: data.reduce((sum, item) => sum + (item.strengthCustomers || 0), 0),
       revenue: data.reduce((sum, item) => sum + (item.strengthPaid || 0), 0),
       emptySessions: data.reduce((sum, item) => sum + (item.emptyStrengthSessions || 0), 0),
-      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyStrengthSessions || 0), 0)
+      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyStrengthSessions || 0), 0),
+      avgCustomersPerSession: 0
     };
 
     // Calculate averages
@@ -55,7 +58,7 @@ export const PowerCycleBarreStrengthComparison: React.FC<PowerCycleBarreStrength
     return { powerCycle, barre, strength };
   }, [data]);
 
-  const getWinner = (pcValue: number, barreValue: number, strengthValue: number) => {
+  const getWinner = (pcValue: number, barreValue: number, strengthValue: number, lowerIsBetter = false) => {
     if (pcValue >= barreValue && pcValue >= strengthValue) return 'powercycle';
     if (barreValue >= strengthValue) return 'barre';
     return 'strength';

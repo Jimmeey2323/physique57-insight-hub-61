@@ -38,7 +38,8 @@ export const PowerCycleBarreStrengthMetricCards: React.FC<PowerCycleBarreStrengt
       customers: data.reduce((sum, item) => sum + (item.cycleCustomers || 0), 0),
       revenue: data.reduce((sum, item) => sum + (item.cyclePaid || 0), 0),
       emptySessions: data.reduce((sum, item) => sum + (item.emptyCycleSessions || 0), 0),
-      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyCycleSessions || 0), 0)
+      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyCycleSessions || 0), 0),
+      avgFillRate: 0
     };
 
     // Calculate Barre metrics
@@ -47,7 +48,8 @@ export const PowerCycleBarreStrengthMetricCards: React.FC<PowerCycleBarreStrengt
       customers: data.reduce((sum, item) => sum + (item.barreCustomers || 0), 0),
       revenue: data.reduce((sum, item) => sum + (item.barrePaid || 0), 0),
       emptySessions: data.reduce((sum, item) => sum + (item.emptyBarreSessions || 0), 0),
-      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyBarreSessions || 0), 0)
+      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyBarreSessions || 0), 0),
+      avgFillRate: 0
     };
 
     // Calculate Strength metrics
@@ -56,7 +58,8 @@ export const PowerCycleBarreStrengthMetricCards: React.FC<PowerCycleBarreStrengt
       customers: data.reduce((sum, item) => sum + (item.strengthCustomers || 0), 0),
       revenue: data.reduce((sum, item) => sum + (item.strengthPaid || 0), 0),
       emptySessions: data.reduce((sum, item) => sum + (item.emptyStrengthSessions || 0), 0),
-      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyStrengthSessions || 0), 0)
+      nonEmptySessions: data.reduce((sum, item) => sum + (item.nonEmptyStrengthSessions || 0), 0),
+      avgFillRate: 0
     };
 
     // Calculate totals
@@ -65,7 +68,8 @@ export const PowerCycleBarreStrengthMetricCards: React.FC<PowerCycleBarreStrengt
       customers: data.reduce((sum, item) => sum + (item.totalCustomers || 0), 0),
       revenue: data.reduce((sum, item) => sum + (item.totalPaid || 0), 0),
       emptySessions: data.reduce((sum, item) => sum + (item.totalEmptySessions || 0), 0),
-      nonEmptySessions: data.reduce((sum, item) => sum + (item.totalNonEmptySessions || 0), 0)
+      nonEmptySessions: data.reduce((sum, item) => sum + (item.totalNonEmptySessions || 0), 0),
+      avgFillRate: 0
     };
 
     // Calculate fill rates
