@@ -35,21 +35,25 @@ export const PowerCycleVsBarreSection: React.FC = () => {
 
   // Filter data based on selected filters
   const filteredData = React.useMemo(() => {
+    console.log('Filtering payrollData:', payrollData?.length, 'items');
     if (!payrollData) return [];
     
     let filtered = payrollData;
+    console.log('Before filtering:', filtered.length, 'items');
     
     // Apply location filter
     if (selectedLocation !== 'all') {
       filtered = filtered.filter(item => item.location === selectedLocation);
+      console.log('After location filter:', filtered.length, 'items');
     }
     
     // Apply trainer filter
     if (selectedTrainer !== 'all') {
       filtered = filtered.filter(item => item.teacherName === selectedTrainer);
+      console.log('After trainer filter:', filtered.length, 'items');
     }
     
-    // Apply timeframe filter
+    // Apply timeframe filter - Fix: Make sure we handle historical data properly
     if (selectedTimeframe !== 'all') {
       const now = new Date();
       let startDate = new Date();
@@ -65,19 +69,29 @@ export const PowerCycleVsBarreSection: React.FC = () => {
           startDate.setFullYear(now.getFullYear() - 1);
           break;
         default:
+          console.log('No timeframe filter applied');
           return filtered;
       }
       
+      const oldFilteredLength = filtered.length;
       filtered = filtered.filter(item => {
         if (!item.monthYear) return false;
         const [monthName, year] = item.monthYear.split(' ');
         const monthIndex = ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December'].indexOf(monthName);
         const itemDate = new Date(parseInt(year), monthIndex, 1);
-        return itemDate >= startDate && itemDate <= now;
+        const isInRange = itemDate >= startDate && itemDate <= now;
+        
+        if (!isInRange) {
+          console.log('Filtered out item with date:', item.monthYear, 'itemDate:', itemDate, 'range:', startDate, 'to', now);
+        }
+        
+        return isInRange;
       });
+      console.log('After timeframe filter:', filtered.length, 'items (was', oldFilteredLength, ')');
     }
     
+    console.log('Final filtered data:', filtered.length, 'items');
     return filtered;
   }, [payrollData, selectedLocation, selectedTimeframe, selectedTrainer]);
 
