@@ -14,6 +14,8 @@ export const PowerCycleBarreStrengthComparison: React.FC<PowerCycleBarreStrength
   data,
   onItemClick
 }) => {
+  console.log('PowerCycleBarreStrengthComparison received data:', data.length, 'items');
+  
   const comparisonData = useMemo(() => {
     if (!data || data.length === 0) {
       return {

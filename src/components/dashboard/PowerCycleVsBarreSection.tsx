@@ -18,6 +18,8 @@ export const PowerCycleVsBarreSection: React.FC = () => {
   const { setLoading } = useGlobalLoading();
   const { data: payrollData, isLoading: loading, error } = usePayrollData();
   
+  console.log('PowerCycleVsBarreSection - payrollData:', payrollData?.length, 'items, loading:', loading, 'error:', error);
+  
   const [activeTab, setActiveTab] = useState('overview');
   const [drillDownData, setDrillDownData] = useState<any>(null);
   const [showSourceData, setShowSourceData] = useState(false);
@@ -26,7 +28,9 @@ export const PowerCycleVsBarreSection: React.FC = () => {
   const [selectedTrainer, setSelectedTrainer] = useState('all');
 
   React.useEffect(() => {
-    setLoading(loading, 'Loading PowerCycle vs Barre vs Strength comparison data...');
+    if (loading !== undefined) {
+      setLoading(loading, 'Loading PowerCycle vs Barre vs Strength comparison data...');
+    }
   }, [loading, setLoading]);
 
   // Filter data based on selected filters

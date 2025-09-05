@@ -16,7 +16,9 @@ const PowerCycleVsBarre = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(loading, 'Loading PowerCycle vs Barre performance data...');
+    if (loading !== undefined) {
+      setLoading(loading, 'Loading PowerCycle vs Barre performance data...');
+    }
   }, [loading, setLoading]);
 
   if (isLoading) {
